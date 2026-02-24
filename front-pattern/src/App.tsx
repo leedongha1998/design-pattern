@@ -12,6 +12,13 @@ import { DuplicatedDebounceAntiPattern, MixedDashboardAntiPattern, PropsDrilling
  */
 const ProfilePanel = withLoading(({ name }: { name: string }) => <p>사용자: {name}</p>);
 
+/**
+ * Displays the current theme and a control to toggle it.
+ *
+ * Renders a horizontal row showing a label, the current theme value from theme context, and a button that switches the theme when clicked.
+ *
+ * @returns A JSX element containing the current theme label, the theme value, and a toggle button
+ */
 function ThemeBadge() {
   const { theme, toggleTheme } = useTheme();
   return (
@@ -23,6 +30,11 @@ function ThemeBadge() {
   );
 }
 
+/**
+ * Renders a demo UI that shows live and debounced input values using the `useDebounce` hook.
+ *
+ * @returns A JSX element containing a text input, the current (real-time) value, and the debounced value.
+ */
 function DebounceExample() {
   const [value, setValue] = useState('');
   const debounced = useDebounce(value, 500);
@@ -42,7 +54,9 @@ function DebounceExample() {
 }
 
 /**
- * 실무형 프론트엔드 패턴 예제 루트 컴포넌트입니다.
+ * Root demo component that composes multiple React design-pattern examples.
+ *
+ * @returns The component tree demonstrating container/presentational, compound components, render props, higher-order components, context/provider usage, and a debounced input example.
  */
 export function App() {
   return (

@@ -6,8 +6,10 @@ interface Order {
 }
 
 /**
- * Presentational 컴포넌트:
- * 데이터 표시(UI) 역할만 담당합니다.
+ * Renders an unordered list of orders.
+ *
+ * @param orders - Array of orders to display; each order should include `id` and `status`
+ * @returns A React element: an unordered list where each order is rendered as "id - status"
  */
 function OrderListView({ orders }: { orders: Order[] }) {
   return (
@@ -22,8 +24,13 @@ function OrderListView({ orders }: { orders: Order[] }) {
 }
 
 /**
- * Container 컴포넌트:
- * 데이터 준비/상태 관리/비즈니스 로직을 담당합니다.
+ * Prepare and manage dashboard order data and render the OrderListView.
+ *
+ * Initializes local order state and populates it with sample orders on mount
+ * (placeholder for an API call), then renders the presentational OrderListView
+ * with the current orders.
+ *
+ * @returns The dashboard container element that renders OrderListView with the prepared orders.
  */
 export function DashboardContainer() {
   const [orders, setOrders] = useState<Order[]>([]);
