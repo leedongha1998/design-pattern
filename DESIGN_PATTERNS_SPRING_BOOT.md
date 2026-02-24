@@ -88,6 +88,28 @@
 
 ---
 
+
+## 패키지별 분리 학습 방법 (추천)
+
+학습 시에는 각 패턴 패키지의 `package-info.java`를 먼저 읽고, 그 다음 데모 클래스를 실행 흐름 기준으로 따라가세요.
+
+- `strategy/package-info.java` → `PaymentStrategyDemo` → `CheckoutService`
+- `factory/package-info.java` → `NotificationFactoryDemo` → `NotificationCreator`
+- `template/package-info.java` → `OrderTemplateDemo` → `OrderProcessTemplate`
+- `observer/package-info.java` → `OrderEventObserverDemo` → `OrderEventPublisher`
+- `proxy/package-info.java` → `CachedProductServiceDemo` → `CachedProductServiceProxy`
+- `decorator/package-info.java` → `DecoratorPatternDemo` → 각 Decorator 조합
+- `adapter/package-info.java` → `AdapterPatternDemo` → `LegacyPaymentAdapter`
+- `facade/package-info.java` → `FacadePatternDemo` → `OrderFacade`
+- `chain/package-info.java` → `ChainOfResponsibilityDemo` → 각 ApprovalHandler
+
+각 `package-info.java`에는 아래가 주석으로 정리되어 있습니다.
+1) 언제 도입하는지
+2) 실제 코드 실행 순서
+3) 학습 시 봐야 할 핵심 포인트
+
+---
+
 ## 디자인 패턴 공부 시 추가로 꼭 챙길 내용
 
 1. **왜 이 패턴을 쓰는지(문제 상황) 먼저 정의하기**
