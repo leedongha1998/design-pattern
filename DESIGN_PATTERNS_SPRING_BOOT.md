@@ -83,3 +83,12 @@
 ```
 
 실행하면 `Main`의 `CommandLineRunner`가 각 패턴 데모를 순서대로 출력합니다.
+
+---
+
+## Front-end 패턴 학습 패키지
+
+백엔드 예제와 별도로 React + TypeScript 기반 프론트엔드 패턴 예제는 `front-pattern` 패키지에서 학습할 수 있습니다.
+
+- 주요 패턴: Container/Presentational, Compound Component, Render Props, HOC, Provider/Context, Custom Hook
+- 상세 문서: `FRONT_PATTERN_GUIDE.md`, `front-pattern/README.md`
