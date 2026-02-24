@@ -5,6 +5,7 @@ import { withLoading } from './patterns/hoc-with-loading';
 import { ThemeProvider, useTheme } from './patterns/provider-context';
 import { useDebounce } from './hooks/useDebounce';
 import { useState } from 'react';
+import { DuplicatedDebounceAntiPattern, MixedDashboardAntiPattern, PropsDrillingAntiPattern } from './anti-patterns/examples';
 
 /**
  * HOC 패턴으로 감싼 컴포넌트 예시입니다.
@@ -84,6 +85,12 @@ export function App() {
 
         <section>
           <DebounceExample />
+        </section>
+        <section>
+          <h2>안티패턴 예제 (왜 패턴이 필요한가)</h2>
+          <MixedDashboardAntiPattern />
+          <PropsDrillingAntiPattern />
+          <DuplicatedDebounceAntiPattern />
         </section>
       </div>
     </ThemeProvider>
