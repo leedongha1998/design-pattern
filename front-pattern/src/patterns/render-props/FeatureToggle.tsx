@@ -1,7 +1,12 @@
 /**
- * FeatureToggle
- * - 플래그 판정 로직만 담당
- * - 켜짐/꺼짐 UI는 부모에서 render function으로 주입
+ * [Render Props]
+ *
+ * 실무에서 자주 마주치는 문제:
+ * - "로직은 같은데 UI만 다른" 요구가 반복됨 (A/B 테스트, 권한별 노출)
+ *
+ * 해결 방식:
+ * - 플래그 판정 로직은 여기서 담당
+ * - 실제 ON/OFF UI는 부모가 render function으로 주입
  */
 export function FeatureToggle({
   feature,

@@ -1,10 +1,9 @@
 import type { Order, OrderStatus } from './types';
 
 /**
- * Presentational Layer
- * - 오직 렌더링만 담당
- * - 서버 통신/상태/사이드이펙트 없음
- * - 재사용성과 스냅샷 테스트가 쉬움
+ * Presentational View
+ * - props를 받아 그리기만 한다.
+ * - 비즈니스 규칙(필터/정렬/요청)은 알지 못한다.
  */
 export function OrderListView({
   orders,

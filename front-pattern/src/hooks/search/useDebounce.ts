@@ -1,9 +1,14 @@
 import { useEffect, useState } from 'react';
 
 /**
- * 재사용 가능한 Debounce Hook
- * @param value 원본 입력값
- * @param delayMs 지연 시간(ms)
+ * [Custom Hook: useDebounce]
+ *
+ * 실무에서 자주 마주치는 문제:
+ * - 검색창 입력마다 API 요청이 발생해 트래픽/비용/깜빡임 증가
+ *
+ * 해결 방식:
+ * - 마지막 입력 후 delayMs가 지나면 값 반영
+ * - UI 입력값과 요청 트리거 값을 분리
  */
 export function useDebounce<T>(value: T, delayMs: number) {
   const [debounced, setDebounced] = useState(value);

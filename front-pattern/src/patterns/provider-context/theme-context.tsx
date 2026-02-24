@@ -10,9 +10,14 @@ interface ThemeContextValue {
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 /**
- * Provider/Context 패턴
- * - 트리 깊이에 상관없이 테마 접근 가능
- * - 실무에서는 localStorage 동기화나 서버 프로필 동기화 추가 가능
+ * [Provider / Context]
+ *
+ * 실무에서 자주 마주치는 문제:
+ * - 테마/로케일/권한 같은 전역 상태를 props drilling으로 전달
+ *
+ * 해결 방식:
+ * - Provider가 전역 상태를 공급
+ * - 커스텀 훅(useTheme)으로 안전하게 접근
  */
 export function ThemeProvider({ children }: PropsWithChildren) {
   const [theme, setTheme] = useState<Theme>('light');

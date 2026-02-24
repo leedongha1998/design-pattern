@@ -7,7 +7,15 @@ interface CardContextValue {
 const CardContext = createContext<CardContextValue | null>(null);
 
 /**
- * Root가 공통 스타일/상태(tone)를 하위에 제공.
+ * [Compound Component]
+ *
+ * 실무에서 자주 마주치는 문제:
+ * - 카드/모달/드롭다운 같은 UI에서 props가 비대해짐
+ * - 한 컴포넌트에 header/body/footer를 문자열 props로 억지 주입
+ *
+ * 해결 방식:
+ * - Root/Header/Body/Footer 조합 API로 의도를 드러냄
+ * - Root가 컨텍스트를 통해 하위 슬롯에 공통 상태 전달
  */
 function Root({ children, tone = 'default' }: PropsWithChildren<{ tone?: 'default' | 'warning' }>) {
   return (
