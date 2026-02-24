@@ -86,7 +86,6 @@ export function App() {
         <section>
           <DebounceExample />
         </section>
-
         <section>
           <h2>안티패턴 예제 (왜 패턴이 필요한가)</h2>
           <MixedDashboardAntiPattern />

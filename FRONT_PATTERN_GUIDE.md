@@ -33,7 +33,7 @@
 
 > 실제 프로젝트에서는 Render Props보다 Hook/HOC/Compound 조합을 더 많이 보게 됩니다.
 
-
 ## 안티패턴과 함께 학습하기
 
 패턴을 적용하기 전 코드의 문제를 함께 보려면 `FRONT_PATTERN_ANTI_PATTERN_GUIDE.md`와 `front-pattern/src/anti-patterns/examples.tsx`를 확인하세요.
+
