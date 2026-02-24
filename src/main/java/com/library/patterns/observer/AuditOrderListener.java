@@ -6,7 +6,8 @@ package com.library.patterns.observer;
 public class AuditOrderListener implements OrderEventListener {
 
     @Override
-    public void onChanged(String orderNo, String status) {
-        System.out.println("[AUDIT] " + orderNo + " -> " + status + " 기록 완료");
+    public void onChanged(OrderEvent event) {
+        System.out.println("[AUDIT] " + event.orderNo() + " -> " + event.status()
+                + ", actor=" + event.actor() + ", at=" + event.occurredAt());
     }
 }

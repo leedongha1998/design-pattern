@@ -1,5 +1,7 @@
 package com.library.patterns.template;
 
+import java.math.BigDecimal;
+import java.util.UUID;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,6 +17,13 @@ public class OrderTemplateDemo {
     }
 
     public void run() {
-        System.out.println(regularOrderProcess.process("ORD-2026-001"));
+        OrderContext context = new OrderContext(
+                "ORD-2026-001",
+                "CUS-101",
+                new BigDecimal("38000"),
+                "B2C",
+                UUID.randomUUID().toString()
+        );
+        System.out.println(regularOrderProcess.process(context));
     }
 }

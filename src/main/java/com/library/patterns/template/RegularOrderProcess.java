@@ -9,12 +9,19 @@ import org.springframework.stereotype.Component;
 public class RegularOrderProcess extends OrderProcessTemplate {
 
     @Override
-    protected String pay(String orderNo) {
-        return "일반 결제 처리 완료(" + orderNo + ")";
+    protected void beforeProcess(OrderContext context) {
+        if ("B2B".equals(context.channel()) && context.amount().intValue() < 5000) {
+            throw new IllegalArgumentException("B2B 최소 주문 금액 미달");
+        }
     }
 
     @Override
-    protected String prepareDelivery(String orderNo) {
-        return "일반 배송 준비 완료(" + orderNo + ")";
+    protected String pay(OrderContext context) {
+        return "결제 게이트웨이 승인(" + context.orderNo() + ")";
+    }
+
+    @Override
+    protected String prepareDelivery(OrderContext context) {
+        return "물류센터 피킹 생성(" + context.orderNo() + ")";
     }
 }

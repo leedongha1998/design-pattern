@@ -12,7 +12,7 @@ class CheckoutServiceTest {
     private final CheckoutService checkoutService = new CheckoutService();
 
     @Test
-    void shouldReturnSameResultForSameIdempotencyKey() {
+    void should_returnSameResult_when_sameIdempotencyKey() {
         PaymentRequest request = new PaymentRequest(
                 "ORD-1",
                 "CUS-1",
@@ -31,7 +31,7 @@ class CheckoutServiceTest {
     }
 
     @Test
-    void shouldRejectInvalidAmount() {
+    void should_rejectPayment_when_amountIsInvalid() {
         PaymentRequest request = new PaymentRequest(
                 "ORD-2",
                 "CUS-2",
@@ -49,7 +49,7 @@ class CheckoutServiceTest {
     }
 
     @Test
-    void shouldRejectHighRiskKakaoPayment() {
+    void should_rejectKakaoPay_when_riskIsHigh() {
         PaymentRequest request = new PaymentRequest(
                 "ORD-3",
                 "CUS-3",
