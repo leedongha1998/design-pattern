@@ -8,5 +8,5 @@ public interface NotificationSender {
     /**
      * 알림을 전송합니다.
      */
-    String send(String message);
+    NotificationResult send(NotificationRequest request);
 }
