@@ -1,6 +1,10 @@
 /**
- * Render Props 패턴:
- * 컴포넌트 내부 상태를 외부 렌더 함수를 통해 유연하게 표시합니다.
+ * Selects and renders one of two render callbacks based on the provided feature name.
+ *
+ * @param feature - The feature identifier to evaluate (`'betaBanner'` | `'newCheckout'`)
+ * @param renderOn - Function that returns the JSX to render when the feature is enabled
+ * @param renderOff - Function that returns the JSX to render when the feature is disabled
+ * @returns The JSX element produced by the chosen render callback
  */
 export function FeatureToggle({
   feature,

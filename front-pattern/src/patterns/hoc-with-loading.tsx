@@ -1,8 +1,10 @@
 import { ComponentType } from 'react';
 
 /**
- * HOC 패턴:
- * 기존 컴포넌트를 감싸 공통 로직(로딩 표시)을 재사용합니다.
+ * Creates a higher-order component that displays a loading indicator and otherwise renders the wrapped component.
+ *
+ * @param Wrapped - The component to enhance with loading-state rendering.
+ * @returns A component that accepts the wrapped component's props plus `loading: boolean`; when `loading` is `true` it renders a loading paragraph (`"로딩 중..."`), otherwise it renders `Wrapped` with the remaining props.
  */
 export function withLoading<P extends object>(Wrapped: ComponentType<P>) {
   return function EnhancedComponent(props: P & { loading: boolean }) {
