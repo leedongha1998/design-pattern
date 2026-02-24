@@ -1,10 +1,10 @@
 package com.library.patterns.facade;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Facade 패턴의 핵심 클래스입니다.
- *
- * <p>재고/결제/배송처럼 여러 하위 시스템 호출을
- * 하나의 단순한 메서드로 숨겨서 클라이언트 코드를 간단하게 만듭니다.
  */
 public class OrderFacade {
 
@@ -12,11 +12,69 @@ public class OrderFacade {
     private final BillingService billingService = new BillingService();
     private final ShippingService shippingService = new ShippingService();
 
-    public String placeOrder(String orderNo, String productId, int amount) {
-        String reserved = inventoryService.reserve(productId);
-        String charged = billingService.charge(orderNo, amount);
-        String shipped = shippingService.requestDelivery(orderNo);
+    public PlaceOrderResult placeOrder(PlaceOrderCommand command) {
+        long startedAt = System.currentTimeMillis();
+        List<FacadeStepResult> steps = new ArrayList<>();
 
-        return reserved + " / " + charged + " / " + shipped;
+        try {
+            steps.add(runStep("inventory", () -> inventoryService.reserve(command.productId())));
+            steps.add(runStep("billing", () -> billingService.charge(command.orderNo(), command.amount())));
+            steps.add(runStep("shipping", () -> shippingService.requestDelivery(command.orderNo())));
+
+            return new PlaceOrderResult(
+                    true,
+                    command.orderNo(),
+                    command.traceId(),
+                    "",
+                    "",
+                    false,
+                    System.currentTimeMillis() - startedAt,
+                    steps
+            );
+        } catch (IllegalArgumentException e) {
+            return failedResult(command, startedAt, steps, "VALIDATION_ERROR", false);
+        } catch (RuntimeException e) {
+            String failedAt = steps.size() == 0 ? "inventory" : steps.size() == 1 ? "billing" : "shipping";
+            return new PlaceOrderResult(
+                    false,
+                    command.orderNo(),
+                    command.traceId(),
+                    failedAt,
+                    "SUBSYSTEM_FAILURE",
+                    true,
+                    System.currentTimeMillis() - startedAt,
+                    steps
+            );
+        }
+    }
+
+    private PlaceOrderResult failedResult(
+            PlaceOrderCommand command,
+            long startedAt,
+            List<FacadeStepResult> steps,
+            String errorCode,
+            boolean retryable
+    ) {
+        return new PlaceOrderResult(
+                false,
+                command.orderNo(),
+                command.traceId(),
+                "validation",
+                errorCode,
+                retryable,
+                System.currentTimeMillis() - startedAt,
+                steps
+        );
+    }
+
+    private FacadeStepResult runStep(String step, StepCall call) {
+        long startedAt = System.currentTimeMillis();
+        String detail = call.execute();
+        return new FacadeStepResult(step, true, detail, System.currentTimeMillis() - startedAt);
+    }
+
+    @FunctionalInterface
+    private interface StepCall {
+        String execute();
     }
 }

@@ -7,29 +7,46 @@ public abstract class ApprovalHandler {
 
     private ApprovalHandler next;
 
-    /**
-     * 다음 처리자 연결 메서드(체이닝 가능).
-     */
     public ApprovalHandler linkWith(ApprovalHandler next) {
         this.next = next;
         return next;
     }
 
-    public final String handle(int amount) {
-        if (!canApprove(amount)) {
-            return rejectMessage(amount);
+    public final ApprovalDecision handle(ApprovalRequest request) {
+        long startedAt = System.currentTimeMillis();
+
+        if (canApprove(request)) {
+            return new ApprovalDecision(
+                    true,
+                    approver(),
+                    approveMessage(request),
+                    "",
+                    false,
+                    System.currentTimeMillis() - startedAt,
+                    request.traceId()
+            );
         }
 
-        if (next == null) {
-            return approveMessage(amount);
+        if (next != null) {
+            return next.handle(request);
         }
 
-        return approveMessage(amount) + " -> " + next.handle(amount);
+        return new ApprovalDecision(
+                false,
+                approver(),
+                rejectMessage(request),
+                "LIMIT_EXCEEDED",
+                false,
+                System.currentTimeMillis() - startedAt,
+                request.traceId()
+        );
     }
 
-    protected abstract boolean canApprove(int amount);
+    protected abstract boolean canApprove(ApprovalRequest request);
 
-    protected abstract String approveMessage(int amount);
+    protected abstract String approver();
 
-    protected abstract String rejectMessage(int amount);
+    protected abstract String approveMessage(ApprovalRequest request);
+
+    protected abstract String rejectMessage(ApprovalRequest request);
 }

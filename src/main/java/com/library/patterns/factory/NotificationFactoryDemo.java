@@ -21,7 +21,24 @@ public class NotificationFactoryDemo {
     }
 
     public void run() {
-        System.out.println(emailCreator.notifyUser("주문이 완료되었습니다."));
-        System.out.println(smsCreator.notifyUser("배송이 시작되었습니다."));
+        NotificationRequest orderPaid = new NotificationRequest(
+                "member@company.com",
+                "주문 결제 완료",
+                "ORD-2026-01 결제가 완료되었습니다.",
+                NotificationPriority.NORMAL,
+                "tenant-a"
+        );
+
+        NotificationRequest incident = new NotificationRequest(
+                "010-1234-5678",
+                "장애 알림",
+                "결제 승인 지연률 급증",
+                NotificationPriority.CRITICAL,
+                "tenant-a"
+        );
+
+        System.out.println(emailCreator.notifyUser(orderPaid));
+        System.out.println(smsCreator.notifyUser(orderPaid));
+        System.out.println(smsCreator.notifyUser(incident));
     }
 }
