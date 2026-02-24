@@ -1,5 +1,6 @@
 package com.library.patterns.chain;
 
+import java.util.UUID;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,8 +16,8 @@ public class ChainOfResponsibilityDemo {
 
         teamLeader.linkWith(manager).linkWith(director);
 
-        System.out.println(teamLeader.handle(300_000));
-        System.out.println(teamLeader.handle(1_500_000));
-        System.out.println(teamLeader.handle(11_000_000));
+        System.out.println(teamLeader.handle(new ApprovalRequest("APR-1", "STAFF", "OPS", 300_000, UUID.randomUUID().toString())));
+        System.out.println(teamLeader.handle(new ApprovalRequest("APR-2", "STAFF", "OPS", 1_500_000, UUID.randomUUID().toString())));
+        System.out.println(teamLeader.handle(new ApprovalRequest("APR-3", "STAFF", "OPS", 11_000_000, UUID.randomUUID().toString())));
     }
 }
