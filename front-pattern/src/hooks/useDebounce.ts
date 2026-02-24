@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 
 /**
- * Custom Hook 패턴:
- * 반복되는 상태/효과 로직(디바운스)을 훅으로 분리합니다.
+ * Create a debounced version of a value that updates only after the value has remained unchanged for a given delay.
+ *
+ * @param value - The input value to debounce
+ * @param delay - Delay in milliseconds to wait after the last change before updating the returned value
+ * @returns The debounced value which reflects `value` only after it has remained unchanged for `delay` milliseconds
  */
 export function useDebounce<T>(value: T, delay: number) {
   const [debounced, setDebounced] = useState(value);

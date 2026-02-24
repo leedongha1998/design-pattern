@@ -10,8 +10,11 @@ interface ThemeContextValue {
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 /**
- * Provider/Context 패턴:
- * 전역 상태(테마)를 트리 전체에 전달합니다.
+ * Provides theme state and a toggle function to the component tree via ThemeContext.
+ *
+ * Renders a Context Provider that supplies the current `theme` and `toggleTheme` to descendants.
+ *
+ * @returns A React element that supplies `ThemeContext` to its children
  */
 export function ThemeProvider({ children }: PropsWithChildren) {
   const [theme, setTheme] = useState<Theme>('light');
@@ -27,6 +30,14 @@ export function ThemeProvider({ children }: PropsWithChildren) {
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 
+/**
+ * Access the current theme context value.
+ *
+ * Throws an error if called outside a ThemeProvider.
+ *
+ * @returns The theme context value containing `theme` and `toggleTheme`.
+ * @throws Error if `useTheme` is invoked outside of a `ThemeProvider`.
+ */
 export function useTheme() {
   const context = useContext(ThemeContext);
   if (!context) {
