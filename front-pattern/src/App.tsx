@@ -18,6 +18,13 @@ import {
  */
 const ProfilePanel = withRequestBoundary(({ name }: { name: string }) => <p>사용자: {name}</p>);
 
+/**
+ * Displays the current theme and a control to toggle it.
+ *
+ * Renders a horizontal row showing a label, the current theme value from theme context, and a button that switches the theme when clicked.
+ *
+ * @returns A JSX element containing the current theme label, the theme value, and a toggle button
+ */
 function ThemeBadge() {
   const { theme, toggleTheme } = useTheme();
   return (
@@ -29,6 +36,11 @@ function ThemeBadge() {
   );
 }
 
+/**
+ * Renders a demo UI that shows live and debounced input values using the `useDebounce` hook.
+ *
+ * @returns A JSX element containing a text input, the current (real-time) value, and the debounced value.
+ */
 function DebounceExample() {
   const [query, setQuery] = useState('');
   const debouncedQuery = useDebounce(query, 500);
