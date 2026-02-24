@@ -6,7 +6,7 @@ package com.library.patterns.proxy;
 public interface ProductService {
 
     /**
-     * 상품 이름을 조회합니다.
+     * 상품 정보를 조회합니다.
      */
-    String findProductName(long productId);
+    ProductSnapshot findProduct(long productId);
 }

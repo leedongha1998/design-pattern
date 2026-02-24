@@ -2,6 +2,7 @@ package com.library;
 
 import com.library.patterns.adapter.AdapterPatternDemo;
 import com.library.patterns.chain.ChainOfResponsibilityDemo;
+import com.library.patterns.common.DemoScenarioRunner;
 import com.library.patterns.decorator.DecoratorPatternDemo;
 import com.library.patterns.facade.FacadePatternDemo;
 import com.library.patterns.factory.NotificationFactoryDemo;
@@ -16,8 +17,6 @@ import org.springframework.context.annotation.Bean;
 
 /**
  * 스프링부트 애플리케이션 시작점입니다.
- *
- * <p>앱이 실행되면 CommandLineRunner를 통해 각 디자인 패턴 예제를 순서대로 실행합니다.
  */
 @SpringBootApplication
 public class Main {
@@ -26,11 +25,9 @@ public class Main {
         SpringApplication.run(Main.class, args);
     }
 
-    /**
-     * 부팅 완료 후 디자인 패턴 데모를 실행합니다.
-     */
     @Bean
     CommandLineRunner runPatternDemos(
+            DemoScenarioRunner scenarioRunner,
             PaymentStrategyDemo paymentStrategyDemo,
             NotificationFactoryDemo notificationFactoryDemo,
             OrderTemplateDemo orderTemplateDemo,
@@ -42,32 +39,15 @@ public class Main {
             ChainOfResponsibilityDemo chainOfResponsibilityDemo
     ) {
         return args -> {
-            System.out.println("\n=== 1) Strategy Pattern ===");
-            paymentStrategyDemo.run();
-
-            System.out.println("\n=== 2) Factory Method Pattern ===");
-            notificationFactoryDemo.run();
-
-            System.out.println("\n=== 3) Template Method Pattern ===");
-            orderTemplateDemo.run();
-
-            System.out.println("\n=== 4) Observer Pattern ===");
-            orderEventObserverDemo.run();
-
-            System.out.println("\n=== 5) Proxy Pattern ===");
-            cachedProductServiceDemo.run();
-
-            System.out.println("\n=== 6) Decorator Pattern ===");
-            decoratorPatternDemo.run();
-
-            System.out.println("\n=== 7) Adapter Pattern ===");
-            adapterPatternDemo.run();
-
-            System.out.println("\n=== 8) Facade Pattern ===");
-            facadePatternDemo.run();
-
-            System.out.println("\n=== 9) Chain of Responsibility Pattern ===");
-            chainOfResponsibilityDemo.run();
+            System.out.println(scenarioRunner.runScenario("Strategy", paymentStrategyDemo::run));
+            System.out.println(scenarioRunner.runScenario("Factory", notificationFactoryDemo::run));
+            System.out.println(scenarioRunner.runScenario("Template", orderTemplateDemo::run));
+            System.out.println(scenarioRunner.runScenario("Observer", orderEventObserverDemo::run));
+            System.out.println(scenarioRunner.runScenario("Proxy", cachedProductServiceDemo::run));
+            System.out.println(scenarioRunner.runScenario("Decorator", decoratorPatternDemo::run));
+            System.out.println(scenarioRunner.runScenario("Adapter", adapterPatternDemo::run));
+            System.out.println(scenarioRunner.runScenario("Facade", facadePatternDemo::run));
+            System.out.println(scenarioRunner.runScenario("ChainOfResponsibility", chainOfResponsibilityDemo::run));
         };
     }
 }

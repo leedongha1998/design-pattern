@@ -6,6 +6,9 @@ package com.library.patterns.facade;
 public class ShippingService {
 
     public String requestDelivery(String orderNo) {
+        if (orderNo.startsWith("ORD-BLOCK")) {
+            throw new IllegalStateException("배송 금지 주문");
+        }
         return "배송 요청 완료(" + orderNo + ")";
     }
 }

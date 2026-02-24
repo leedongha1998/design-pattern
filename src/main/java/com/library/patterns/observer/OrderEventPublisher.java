@@ -16,7 +16,16 @@ public class OrderEventPublisher {
         listeners.add(listener);
     }
 
-    public void notifyChanged(String orderNo, String status) {
-        listeners.forEach(listener -> listener.onChanged(orderNo, status));
+    public void notifyChanged(OrderEvent event) {
+        for (OrderEventListener listener : listeners) {
+            if (!listener.supports(event)) {
+                continue;
+            }
+            try {
+                listener.onChanged(event);
+            } catch (RuntimeException e) {
+                System.out.println("[WARN] listener 실패: " + listener.name() + " - " + e.getMessage());
+            }
+        }
     }
 }
