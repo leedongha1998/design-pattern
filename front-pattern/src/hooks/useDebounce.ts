@@ -1,16 +1,4 @@
-import { useEffect, useState } from 'react';
-
 /**
- * Custom Hook 패턴:
- * 반복되는 상태/효과 로직(디바운스)을 훅으로 분리합니다.
+ * @deprecated 패키지 분리 버전 사용: ./search/useDebounce
  */
-export function useDebounce<T>(value: T, delay: number) {
-  const [debounced, setDebounced] = useState(value);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setDebounced(value), delay);
-    return () => clearTimeout(timer);
-  }, [value, delay]);
-
-  return debounced;
-}
+export { useDebounce } from './search/useDebounce';

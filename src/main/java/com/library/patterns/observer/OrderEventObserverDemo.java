@@ -1,6 +1,7 @@
 package com.library.patterns.observer;
 
 import jakarta.annotation.PostConstruct;
+import java.time.Instant;
 import org.springframework.stereotype.Component;
 
 /**
@@ -25,7 +26,8 @@ public class OrderEventObserverDemo {
     }
 
     public void run() {
-        publisher.notifyChanged("ORD-2026-001", "PAID");
-        publisher.notifyChanged("ORD-2026-001", "SHIPPED");
+        publisher.notifyChanged(new OrderEvent("ORD-2026-001", "PAID", "SYSTEM", Instant.now()));
+        publisher.notifyChanged(new OrderEvent("ORD-2026-001", "PACKING", "WMS", Instant.now()));
+        publisher.notifyChanged(new OrderEvent("ORD-2026-001", "SHIPPED", "WMS", Instant.now()));
     }
 }

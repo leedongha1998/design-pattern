@@ -6,17 +6,22 @@ package com.library.patterns.chain;
 public class DirectorApprovalHandler extends ApprovalHandler {
 
     @Override
-    protected boolean canApprove(int amount) {
-        return amount <= 10_000_000;
+    protected boolean canApprove(ApprovalRequest request) {
+        return request.amount() <= 10_000_000;
     }
 
     @Override
-    protected String approveMessage(int amount) {
-        return "임원 승인(" + amount + "원)";
+    protected String approver() {
+        return "DIRECTOR";
     }
 
     @Override
-    protected String rejectMessage(int amount) {
-        return "임원 승인 불가(" + amount + "원): 한도 초과";
+    protected String approveMessage(ApprovalRequest request) {
+        return "임원 승인(" + request.amount() + "원)";
+    }
+
+    @Override
+    protected String rejectMessage(ApprovalRequest request) {
+        return "임원 승인 불가(" + request.amount() + "원): 한도 초과";
     }
 }
