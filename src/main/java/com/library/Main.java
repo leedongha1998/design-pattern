@@ -1,5 +1,9 @@
 package com.library;
 
+import com.library.patterns.adapter.AdapterPatternDemo;
+import com.library.patterns.chain.ChainOfResponsibilityDemo;
+import com.library.patterns.decorator.DecoratorPatternDemo;
+import com.library.patterns.facade.FacadePatternDemo;
 import com.library.patterns.factory.NotificationFactoryDemo;
 import com.library.patterns.observer.OrderEventObserverDemo;
 import com.library.patterns.proxy.CachedProductServiceDemo;
@@ -31,7 +35,11 @@ public class Main {
             NotificationFactoryDemo notificationFactoryDemo,
             OrderTemplateDemo orderTemplateDemo,
             OrderEventObserverDemo orderEventObserverDemo,
-            CachedProductServiceDemo cachedProductServiceDemo
+            CachedProductServiceDemo cachedProductServiceDemo,
+            DecoratorPatternDemo decoratorPatternDemo,
+            AdapterPatternDemo adapterPatternDemo,
+            FacadePatternDemo facadePatternDemo,
+            ChainOfResponsibilityDemo chainOfResponsibilityDemo
     ) {
         return args -> {
             System.out.println("\n=== 1) Strategy Pattern ===");
@@ -48,6 +56,18 @@ public class Main {
 
             System.out.println("\n=== 5) Proxy Pattern ===");
             cachedProductServiceDemo.run();
+
+            System.out.println("\n=== 6) Decorator Pattern ===");
+            decoratorPatternDemo.run();
+
+            System.out.println("\n=== 7) Adapter Pattern ===");
+            adapterPatternDemo.run();
+
+            System.out.println("\n=== 8) Facade Pattern ===");
+            facadePatternDemo.run();
+
+            System.out.println("\n=== 9) Chain of Responsibility Pattern ===");
+            chainOfResponsibilityDemo.run();
         };
     }
 }
